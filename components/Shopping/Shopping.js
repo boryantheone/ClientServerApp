@@ -4,7 +4,7 @@ class Shopping {
 	}
 
 	render () {
-		const productsStorage = localStorageUtil.getProducts();
+		const productsStore = localStorageUtil.getProducts();
 		let htmlCatalog = '';
 		let sumCatalog = 0;
 

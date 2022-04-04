@@ -1,0 +1,22 @@
+.footer {
+	display: flex;
+	font-family: Georgia;
+	justify-content: space-around;
+	align-items: baseline;
+}
+
+.footer-social-icons {
+	display: flex;
+	justify-content: center;
+	list-style: none;
+	margin-top: 1rem;
+	margin-bottom: 1rem;
+	padding-left: 0;
+  }
+  
+  .footer-social-icons>li {
+	margin-left: 0.25rem;
+	margin-right: 0.25rem;
+  }
+  
+

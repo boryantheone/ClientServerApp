@@ -1,6 +1,10 @@
 class Header {
 handlerOpenShoppingPage() {
-shoppingPage.render();
+	shoppingPage.render();
+}
+
+handlerOpenAuthorizePage() {
+	authorizePage.render();
 }
 
 	render (count) {
@@ -17,7 +21,7 @@ shoppingPage.render();
 				</form>
 			</div>
 			<div class="header-container_authorize">
-				<button class="header-container_authorize__btn">Вход</button>
+				<button class="header-container_authorize__btn" onclick="headerPage.handlerOpenAuthorizePage();">Вход</button>
 				<span class="header-container__authorize-seporator">/</span>
 				<button class="header-container_authorize__btn">Регистрация</button>
 			</div>
