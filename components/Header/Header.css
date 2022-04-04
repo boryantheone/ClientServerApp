@@ -6,8 +6,114 @@
 }
 
 .header-counter {
+	width: 42px;
+	height: 42px;
 	margin-left: auto;
 	padding-right: var(--spacing-small);
 	font-weight: bold;
 	cursor: pointer;
+	display: flex;
+}
+
+.header-container__logo {
+	display: flex;
+	align-items: center;
+	font-family: Georgia;
+	white-space: nowrap;
+}
+
+.header-container_authorize {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	min-width: 165px;
+}
+
+.header-container_authorize__btn {
+	font-family: Georgia;
+	border-color: var(--color-light);
+	border-radius: 10px;
+	cursor: pointer;
+}
+
+.header-container__authorize-seporator {
+    margin: 0 7px;
+    color: #d8dcde;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: normal;
+}
+
+.header-counter__fig {
+	margin: auto;
+	text-align: center;
+}
+
+.header-search__input::-webkit-input-placeholder {
+	color: #B6C0A5; 
+	font-style: italic; 
+  }
+  .header-search__input:-moz-placeholder {
+	color: #B6C0A5; 
+	font-style: italic; 
+	background: #E0EFCA;
+  }
+  .header-search__input:-ms-input-placeholder {
+	color: #B6C0A5; 
+	font-style: italic; 
+	background: #E0EFCA;
+  }
+
+.header-search {
+	width: 100%;
+	background: var(--color-medium);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.header-search:after {
+	content:""; 
+	clear:both; 
+	display:table
+}
+
+.header-search__form {
+  width: auto;
+  float: right;
+  margin-right: 30px;
+}
+
+.header-search__input {
+  width: 250px;
+  height: 42px;
+  padding-left: 15px;
+  border-radius: 42px;
+  border: 2px solid #ffa2c2;
+  background: #F9F0DA;
+  outline: none;
+  /* position: relative; */
+  transition: .3s linear;
+}
+.header-search__input:focus {
+  width: 300px;
+}
+
+.header-search__btn {
+  width: 42px;
+  height: 42px;
+  background: none;
+  background-image: url(img/search.svg);
+  border: none;
+  /* position: absolute; */
+  top: -2px;
+  right: 0;
+}
+.header-search__btn:before{
+  content: "\f002";
+  font-family: FontAwesome;
+  color: rgba(28,28,28,0);
 }

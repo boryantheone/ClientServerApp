@@ -1,3 +1,7 @@
+.products-main {
+	display: flex;
+}
+
 .products-container {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -5,6 +9,30 @@
 	width: 80%;
 	max-width: 1200px;
 	margin: var(--spacing-large) auto;
+}
+
+.product-widget__title {
+	font-weight: normal;
+	font-family: Georgia;
+	margin: revert;
+	text-align: right;
+}
+
+.product-widget__list {
+	font-family: Georgia;
+}
+
+.product-widget__list-a {
+	color: black;
+}
+
+.product-widget__list-a:visited {
+	color: #712bcc;
+}
+
+.product-widget {
+
+	/* margin-right: auto; */
 }
 
 .products-elements {

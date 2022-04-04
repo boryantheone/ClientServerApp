@@ -48,9 +48,19 @@ class Products {
 			`;
 		});
 		const html = `
-			<ul class="products-container">
-				${htmlCatalog}
-			</ul>
+			<div class="products-main">
+				<div class="product-widget">
+					<h3 class="product-widget__title">Категории</h3>
+					<ul class="product-widget__list">
+						<li><a class="product-widget__list-a" href="">Новинки</a></li>
+			  			<li><a class="product-widget__list-a" href="">Лучшие цены</a></li>
+			  			<li><a class="product-widget__list-a" href="">Бестселлеры</a></li>
+					</ul>
+		 		</div>
+				<ul class="products-container">
+					${htmlCatalog}
+				</ul>
+			</div>
 		`;
 
 		ROOT_PRODUCTS.innerHTML = html;

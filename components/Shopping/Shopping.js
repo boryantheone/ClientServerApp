@@ -19,9 +19,6 @@ class Shopping {
 				`;
 				sumCatalog += price;
 			}
-			else {
-				<></>
-			}
 		});
 		const html = `
 			<div class="shopping-container">
