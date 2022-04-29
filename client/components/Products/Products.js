@@ -5,8 +5,8 @@ class Products {
 		this.labelRemove = 'Удалить из корзины';
 	}
 
-	handleSetLocationStorage(element, id) {
-		const {pushProduct, products} = localStorageUtil.putProducts(id);
+	handleSetLocationStorage(element, _id) {
+		const {pushProduct, products} = localStorageUtil.putProducts(_id);
 		
 		if (pushProduct) {
 			element.classList.add(this.classNameActive);
@@ -24,11 +24,11 @@ class Products {
 		const productsStorage = localStorageUtil.getProducts();
 		let htmlCatalog = '';
 
-		CATALOG.forEach(({id , name, author, price, img}) => {
+		CATALOG.forEach(({_id , name, author, price, img}) => {
 			let activeClass = '';
 			let activeText = '';
 
-			if (productsStorage.indexOf(id) === -1) {
+			if (productsStorage.indexOf(_id) === -1) {
 				activeText = this.labelAdd;
 			} else {
 				activeClass = ' ' + this.classNameActive;
@@ -43,18 +43,22 @@ class Products {
 					<span class="products-elements__price">
 						💌${price.toLocaleString()} RUB
 					</span>
-					<button class="products-elements__btn${activeClass}" onclick="productsPage.handleSetLocationStorage(this, '${id}');">${activeText}</button>
+					<button class="products-elements__btn${activeClass}" onclick="productsPage.handleSetLocationStorage(this, '${_id}');">${activeText}</button>
 				</li>
 			`;
 		});
 		const html = `
 			<div class="products-main">
 				<div class="product-widget">
-					<h3 class="product-widget__title">Категории</h3>
+					<h3 class="product-widget__title" style="text-align: center;">Категории</h3>
 					<ul class="product-widget__list">
-						<li><a class="product-widget__list-a" href="">Новинки</a></li>
-			  			<li><a class="product-widget__list-a" href="">Лучшие цены</a></li>
-			  			<li><a class="product-widget__list-a" href="">Бестселлеры</a></li>
+						<li><a class="product-widget__list-a" href="/catalog/fiction">Художественная литература</a></li>
+			  			<li><a class="product-widget__list-a" href="/catalog/childrenBooks">Детские книги</a></li>
+			  			<li><a class="product-widget__list-a" href="/catalog/bookTeenagers">Книги для подростков</a></li>
+						<li><a class="product-widget__list-a" href="/catalog/businessLiterature">Бизнес-литература</a></li>
+						<li><a class="product-widget__list-a" href="">Самообразование и саморазвитие</a></li>
+						<li><a class="product-widget__list-a" href="">Учебная литература</a></li>
+						<li><a class="product-widget__list-a" href="">Хобби и досуг</a></li>
 					</ul>
 		 		</div>
 				<ul class="products-container">
@@ -63,6 +67,7 @@ class Products {
 			</div>
 		`;
 
+		
 		ROOT_PRODUCTS.innerHTML = html;
 	}
 }

@@ -8,8 +8,8 @@ class Shopping {
 		let htmlCatalog = '';
 		let sumCatalog = 0;
 
-		CATALOG.forEach(({id , name, author, price}) => {
-			if (productsStore.indexOf(id) !== -1) {
+		CATALOG.forEach(({_id , name, author, price}) => {
+			if (productsStore.indexOf(_id) !== -1) {
 				htmlCatalog += `
 					<tr>
 						<td class="shopping-container_element__name">  · ${name}</td>
@@ -17,7 +17,7 @@ class Shopping {
 						<td class="shopping-container_element__price">${price.toLocaleString()} RUB</td>
 					</tr>
 				`;
-				sumCatalog += price;
+				sumCatalog += Number(price);
 			}
 		});
 		const html = `

@@ -1,3 +1,4 @@
+
 function render () {
 	const productsStore =  localStorageUtil.getProducts();
 	
@@ -5,18 +6,24 @@ function render () {
 	productsPage.render();
 }
 
+function render_category () {
+	const productsStore =  localStorageUtil.getProducts();
+	
+	ROOT_SHOPPING.innerHTML = '';
+	headerPage.render(productsStore.length);
+	productsPage.render_category();
+}
+
+
 let CATALOG = [];
 
-fetch('/catalog.json')
-	.then(res => res.json())
-	.then(body => {
-		CATALOG = body;
-		if (CATALOG.length === 0){
-			console.log("chto")
-		}
-		render();
-	})
-	.catch(error => {
-		console.log("херня");
-		console.log(error);
-	});
+$.get("/product", function(books) {
+	CATALOG = books;
+	render();
+})
+
+$.get("/books/" + "selfEducation", function(books){
+	console.log(books);
+	$('.products-container').empty();
+	
+});
