@@ -1,12 +1,14 @@
 var express = require("express"),
 	http = require("http"),
 	mongoose = require("mongoose"),
-	app = express(),
+	app = express(), //it's my server
 	// categoryController = require("../controllers/category_controller"),
 	productController = require("./controllers/product_controller");
 // настраиваем приложение для использования клиентской папки для статичных файлов
+
 app.use(express.static(__dirname + "/client"));
 app.use(express.urlencoded());
+
 // подключаемся к хранилищу данных Amazeriffic в Mongo
 mongoose.connect('mongodb://localhost/book_shop', {
 	useNewUrlParser: true,
@@ -22,7 +24,7 @@ http.createServer(app).listen(3000);
 console.log("Server start 3000")
 
 app.get("/product", productController.productList);
-// app.get("/product/:category", productController.showByCategory);
+app.get("/product/:category", productController.showByCategory);
 // app.get("/product/:id", productController.show); 
 // app.post("/product", productController.create);
 // app.put("/product/:id", productController.update);
@@ -38,14 +40,6 @@ app.get("/product", productController.productList);
 // app.post("/category/:category/product", productController.create);
 // app.put("/category/:category/product/:id", productController.update);
 // app.delete("/category/:category/product/:id", productController.destroy);
-
-
-// app.get("/catalog.json", function (req, res) {
-// 	bookShop.find({}, function (err, CATALOG) {
-// 		console.log(CATALOG);
-// 		res.json(CATALOG);
-// 	});
-// });
 
 // app.get("/catalog/:category", function (req, res) {
 // 	bookShop.find({ category: req.params.category }, function (err, CATALOG) {

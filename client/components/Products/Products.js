@@ -52,13 +52,13 @@ class Products {
 				<div class="product-widget">
 					<h3 class="product-widget__title" style="text-align: center;">Категории</h3>
 					<ul class="product-widget__list">
-						<li><a class="product-widget__list-a" href="/catalog/fiction">Художественная литература</a></li>
-			  			<li><a class="product-widget__list-a" href="/catalog/childrenBooks">Детские книги</a></li>
-			  			<li><a class="product-widget__list-a" href="/catalog/bookTeenagers">Книги для подростков</a></li>
-						<li><a class="product-widget__list-a" href="/catalog/businessLiterature">Бизнес-литература</a></li>
-						<li><a class="product-widget__list-a" href="">Самообразование и саморазвитие</a></li>
-						<li><a class="product-widget__list-a" href="">Учебная литература</a></li>
-						<li><a class="product-widget__list-a" href="">Хобби и досуг</a></li>
+						<li><a class="product-widget__list-a" href="product/fiction">Художественная литература</a></li>
+			  			<li><a class="product-widget__list-a" href="product/childrenBooks">Детские книги</a></li>
+			  			<li><a class="product-widget__list-a" href="product/bookTeenagers">Книги для подростков</a></li>
+						<li><a class="product-widget__list-a" href="product/businessLiterature">Бизнес-литература</a></li>
+						<li><a class="product-widget__list-a" href="product/selfEducation">Самообразование и саморазвитие</a></li>
+						<li><a class="product-widget__list-a" href="product/fiction">Учебная литература</a></li>
+						<li><a class="product-widget__list-a" href="product/fiction">Хобби и досуг</a></li>
 					</ul>
 		 		</div>
 				<ul class="products-container">

@@ -22,8 +22,8 @@ $.get("/product", function(books) {
 	render();
 })
 
-$.get("/books/" + "selfEducation", function(books){
-	console.log(books);
-	$('.products-container').empty();
+// $.get("/product/fiction", function(books){
+// 	console.log("xsudjsdfd");
+// 	$('.products-container').empty();
 	
-});
+// });

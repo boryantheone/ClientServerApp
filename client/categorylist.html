@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BookShop</title>
+	<link rel="icon" type="image/png" href="/img/favicon.png">
+	<link rel="stylesheet" href="/css/index.css">
+</head>
+
+<body>
+	<div id="header"></div>
+	<div id="authorize"></div>
+	<div id="products"></div>
+	<div id="shopping"></div>
+	<div id="footer"></div>
+
+	<script src="http://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<!-- Constants and Utils -->
+	<!-- <script src="constants/catalog.js"></script> -->
+	<script src="/constants/root.js"></script>
+	<script src="/utils/localStorageUtil.js"></script>
+
+	<!-- Header -->
+	<script src="/components/Header/Header.js"></script>
+	<link rel="stylesheet" type="text/css" href="/components/Header/Header.css">
+
+	<!-- Products -->
+	<script src="/components/Products/Products.js"></script>
+	<link rel="stylesheet" type="text/css" href="/components/Products/Products.css">
+
+	<!-- Shopping -->
+	<script src="/components/Shopping/Shopping.js"></script>
+	<link rel="stylesheet" type="text/css" href="/components/Shopping/Shopping.css">
+
+	<!-- Footer -->
+	<script src="/components/Footer/Footer.js"></script>
+	<link rel="stylesheet" type="text/css" href="/components/Footer/Footer.css">
+
+	<script src="/components/Authorize/Authorize.js"></script>
+	<link rel="stylesheet" type="text/css" href="/components/Authorize/Authorize.css">
+
+
+	<script>
+		console.log("скрипт для категорий");
+		function render() {
+			const productsStore = localStorageUtil.getProducts();
+
+			headerPage.render(productsStore.length);
+			productsPage.render();
+		}
+
+		function render_category() {
+			const productsStore = localStorageUtil.getProducts();
+
+			ROOT_SHOPPING.innerHTML = '';
+			headerPage.render(productsStore.length);
+			productsPage.render_category();
+		}
+
+
+		let CATALOG = [];
+
+		$('.products-container').empty();
+
+		var catalog = $('.products-container'),
+			categoryLink = $('.product-widget__list-a').attr('href');
+
+		$.get(categoryLink, function (res) {
+			console.log("категория");
+			CATALOG = res;
+			render();
+		});
+	</script>
+
+	
+</body>
+
+</html>

@@ -16,23 +16,26 @@ var Product = require("../models/product.js"),
 	};
 
 	ProductsController.showByCategory = function(req, res){
-		var categor = req.params.category;
-		if (categor == "fiction") {
+		var category = req.params.category;
+		if (category == "fiction") {
 			console.log("выбрали худ литературу");
 		}
-		Product.find({'type': categor}, function(err, result){
+		Product.find({'category': category}, function(err, result){
 			if (err != null){
 				console.log("Error! -> " + err);
 				res.status(500).json(err);
 			} else {
 				if (result.length > 0) {
-					res.status(200).json(result);
+					console.log("dсе ок");
+					res.sendfile('./client/categorylist.html');
+					// res.status(200).json(result);
 				} else {
-					res.json(result);
+					console.log("dfsdfdf");
+					res.send(400);
 				}
 			}
 		});
-	}
+	};
 
 module.exports = ProductsController;
 
