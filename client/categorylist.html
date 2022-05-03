@@ -45,33 +45,25 @@
 
 	<script>
 		console.log("скрипт для категорий");
-		function render() {
-			const productsStore = localStorageUtil.getProducts();
-
+		
+		let CATALOG = [];
+		const productsStore = localStorageUtil.getProducts();
 			headerPage.render(productsStore.length);
 			productsPage.render();
-		}
 
-		function render_category() {
-			const productsStore = localStorageUtil.getProducts();
-
-			ROOT_SHOPPING.innerHTML = '';
-			headerPage.render(productsStore.length);
-			productsPage.render_category();
-		}
-
-
-		let CATALOG = [];
-
-		$('.products-container').empty();
+		// $('.products-container').empty();
 
 		var catalog = $('.products-container'),
 			categoryLink = $('.product-widget__list-a').attr('href');
 
-		$.get(categoryLink, function (res) {
+		$.get("/product" + categoryLink, function (req, res) {
 			console.log("категория");
+			console.log(res);
+			console.log(categoryLink);
 			CATALOG = res;
-			render();
+			const productsStore = localStorageUtil.getProducts();
+			headerPage.render(productsStore.length);
+			productsPage.render();
 		});
 	</script>
 
