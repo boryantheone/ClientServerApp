@@ -55,10 +55,41 @@
 	border-top-left-radius: 70em;
   }
 
-.product-widget__list-a {
+.product-widget__list-a-1 {
 	text-decoration: none;
-	color: black;
+	color: #712bcc;
 }
+
+.product-widget__list-a-2 {
+	text-decoration: none;
+	color: #712bcc;
+}
+
+.product-widget__list-a-3 {
+	text-decoration: none;
+	color: #712bcc;
+}
+
+.product-widget__list-a-4 {
+	text-decoration: none;
+	color: #712bcc;
+}
+
+.product-widget__list-a-5 {
+	text-decoration: none;
+	color: #712bcc;
+}
+
+.product-widget__list-a-6 {
+	text-decoration: none;
+	color: #712bcc;
+}
+
+.product-widget__list-a-7 {
+	text-decoration: none;
+	color: #712bcc;
+}
+
 
 .product-widget__list-a:visited {
 	color: #712bcc;

@@ -22,6 +22,14 @@
 	white-space: nowrap;
 }
 
+.header-container__logo a {
+    text-decoration: none; /* Убираем подчёркивание */
+   }
+
+.header-container__logo big {
+   display: table-caption;
+   }
+
 .header-container_authorize {
 	display: -webkit-box;
 	display: -ms-flexbox;

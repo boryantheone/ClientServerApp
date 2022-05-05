@@ -20,6 +20,120 @@ class Products {
 
 	}
 
+	handleCategory1() {
+		var catalog = $('.products-container'),
+			categoryLink = $('.product-widget__list-a-1').attr('category-filter');
+
+		console.log(categoryLink)
+		$('.products-container').empty();
+
+		$.get("/product/" + categoryLink, function (result) {
+				CATALOG = [];
+				CATALOG = result;
+				console.log(result);
+				const productsStore = localStorageUtil.getProducts();
+				headerPage.render(productsStore.length);
+				productsPage.render();
+		});
+	}
+
+	handleCategory2() {
+		var catalog = $('.products-container'),
+			categoryLink = $('.product-widget__list-a-2').attr('category-filter');
+
+		console.log(categoryLink)
+		$('.products-container').empty();
+
+		$.get("/product/" + categoryLink, function (result) {
+				CATALOG = result;
+				console.log(result);
+				const productsStore = localStorageUtil.getProducts();
+				headerPage.render(productsStore.length);
+				productsPage.render();
+		});
+	}
+
+	handleCategory3() {
+		var catalog = $('.products-container'),
+			categoryLink = $('.product-widget__list-a-3').attr('category-filter');
+
+		console.log(categoryLink)
+		$('.products-container').empty();
+
+		$.get("/product/" + categoryLink, function (result) {
+				CATALOG = result;
+				console.log(result);
+				const productsStore = localStorageUtil.getProducts();
+				headerPage.render(productsStore.length);
+				productsPage.render();
+		});
+	}
+
+	handleCategory4() {
+		var catalog = $('.products-container'),
+			categoryLink = $('.product-widget__list-a-4').attr('category-filter');
+
+		console.log(categoryLink)
+		$('.products-container').empty();
+
+		$.get("/product/" + categoryLink, function (result) {
+				CATALOG = result;
+				console.log(result);
+				const productsStore = localStorageUtil.getProducts();
+				headerPage.render(productsStore.length);
+				productsPage.render();
+		});
+	}
+
+	handleCategory5() {
+		var catalog = $('.products-container'),
+			categoryLink = $('.product-widget__list-a-5').attr('category-filter');
+
+		console.log(categoryLink)
+		$('.products-container').empty();
+
+		$.get("/product/" + categoryLink, function (result) {
+				CATALOG = result;
+				console.log(result);
+				const productsStore = localStorageUtil.getProducts();
+				headerPage.render(productsStore.length);
+				productsPage.render();
+		});
+	}
+
+	handleCategory6() {
+		var catalog = $('.products-container'),
+			categoryLink = $('.product-widget__list-a-6').attr('category-filter');
+
+		console.log(categoryLink)
+		$('.products-container').empty();
+
+		$.get("/product/" + categoryLink, function (result) {
+				CATALOG = result;
+				console.log(result);
+				const productsStore = localStorageUtil.getProducts();
+				headerPage.render(productsStore.length);
+				productsPage.render();
+		});
+	}
+
+	handleCategory7() {
+		var catalog = $('.products-container'),
+			categoryLink = $('.product-widget__list-a-7').attr('category-filter');
+
+		console.log(categoryLink)
+		$('.products-container').empty();
+
+		$.get("/product/" + categoryLink, function (result) {
+				CATALOG = result;
+				console.log(result);
+				const productsStore = localStorageUtil.getProducts();
+				headerPage.render(productsStore.length);
+				productsPage.render();
+		});
+	}
+
+
 	render() {
 		const productsStorage = localStorageUtil.getProducts();
 		let htmlCatalog = '';
@@ -52,13 +166,13 @@ class Products {
 				<div class="product-widget">
 					<h3 class="product-widget__title" style="text-align: center;">Категории</h3>
 					<ul class="product-widget__list">
-						<li><a class="product-widget__list-a" href="fiction">Художественная литература</a></li>
-			  			<li><a class="product-widget__list-a" href="childrenBooks">Детские книги</a></li>
-			  			<li><a class="product-widget__list-a" href="bookTeenagers">Книги для подростков</a></li>
-						<li><a class="product-widget__list-a" href="businessLiterature">Бизнес-литература</a></li>
-						<li><a class="product-widget__list-a" href="selfEducation">Самообразование и саморазвитие</a></li>
-						<li><a class="product-widget__list-a" href="">Учебная литература</a></li>
-						<li><a class="product-widget__list-a" href="">Хобби и досуг</a></li>
+						<li><a class="product-widget__list-a-1" category-filter="fiction" href="#" onclick="productsPage.handleCategory1();">Художественная литература</a></li>
+			  			<li><a class="product-widget__list-a-2" category-filter="childrenBooks" href="#" onclick="productsPage.handleCategory2();">Детские книги</a></li>
+			  			<li><a class="product-widget__list-a-3" category-filter="bookTeenagers" href="#" onclick="productsPage.handleCategory3();">Книги для подростков</a></li>
+						<li><a class="product-widget__list-a-4" category-filter="businessLiterature" href="#" onclick="productsPage.handleCategory4();">Бизнес-литература</a></li>
+						<li><a class="product-widget__list-a-5" category-filter="selfEducation" href="#" onclick="productsPage.handleCategory5();">Самообразование и саморазвитие</a></li>
+						<li><a class="product-widget__list-a-6" category-filter="eduBooks" href="#" onclick="productsPage.handleCategory6();">Учебная литература</a></li>
+						<li><a class="product-widget__list-a-7" category-filter="hobbyBooks" href="#" onclick="productsPage.handleCategory7();">Хобби и досуг</a></li>
 					</ul>
 		 		</div>
 				<ul class="products-container">

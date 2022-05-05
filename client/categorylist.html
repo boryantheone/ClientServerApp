@@ -53,18 +53,27 @@
 
 		// $('.products-container').empty();
 
-		var catalog = $('.products-container'),
-			categoryLink = $('.product-widget__list-a').attr('href');
+		var categoryLink = $('.product-widget__list-a').attr('category-filter');
 
-		$.get("/product" + categoryLink, function (req, res) {
-			console.log("категория");
-			console.log(res);
 			console.log(categoryLink);
-			CATALOG = res;
-			const productsStore = localStorageUtil.getProducts();
-			headerPage.render(productsStore.length);
-			productsPage.render();
+		$.get("/product/" + categoryLink, function (req, res) {
+			// console.log("категория");
+			// // console.log(res);
+			// console.log(categoryLink);
+			// console.log(res);
+			// $.get("/product/" + categoryLink, function(result) {
+				CATALOG = result;
+				console.log("result")
+				const productsStore = localStorageUtil.getProducts();
+				headerPage.render(productsStore.length);
+				productsPage.render();
+			// });
+		
 		});
+
+		// location.replace("/product/" + categoryLink);
+
+		
 	</script>
 
 	

@@ -1,9 +1,10 @@
-// var mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
-// var userSchema = mongoose.Schema({
-// 	login: String,
-// 	rule: String
-// });
+var userSchema = mongoose.Schema({
+	login: String,
+	rule: String,
+	cart: [String]
+});
 
-// var users = mongoose.model("user", userSchema, "users");
-// module.exports = users;
+var users = mongoose.model("user", userSchema, "users");
+module.exports = users;

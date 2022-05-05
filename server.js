@@ -1,3 +1,5 @@
+const { search } = require("./controllers/product_controller");
+
 var express = require("express"),
 	http = require("http"),
 	mongoose = require("mongoose"),
@@ -8,6 +10,7 @@ var express = require("express"),
 
 app.use(express.static(__dirname + "/client"));
 app.use(express.urlencoded());
+app.use(express.json());
 
 // подключаемся к хранилищу данных Amazeriffic в Mongo
 mongoose.connect('mongodb://localhost/book_shop', {
@@ -25,6 +28,8 @@ console.log("Server start 3000")
 
 app.get("/product", productController.productList);
 app.get("/product/:category", productController.showByCategory);
+app.get("/product_search/:name", productController.search);
+// app.post("/product/:category", productController.showByCategory);
 // app.get("/product/:id", productController.show); 
 // app.post("/product", productController.create);
 // app.put("/product/:id", productController.update);
@@ -40,57 +45,3 @@ app.get("/product/:category", productController.showByCategory);
 // app.post("/category/:category/product", productController.create);
 // app.put("/category/:category/product/:id", productController.update);
 // app.delete("/category/:category/product/:id", productController.destroy);
-
-// app.get("/catalog/:category", function (req, res) {
-// 	bookShop.find({ category: req.params.category }, function (err, CATALOG) {
-// 		console.log(CATALOG);
-// 		res.json(CATALOG);
-// 	});
-// });
-// app.post("/", function (req, res) {
-// 	console.log(req.body);
-// 	var newToDo = new ToDo({
-// 		"description": req.body.description,
-// 		"tags": req.body.tags
-// 	});
-// 	newToDo.save(function (err, result) {
-// 		if (err !== null) {
-// 			console.log(err);
-// 			res.send("ERROR");
-// 		} else {
-// 			// клиент ожидает, что будут возвращены все задачи,
-// 			// поэтому для сохранения совместимости сделаем дополнитель) в папку part7 . Нам понадобится файл package.json , гденый запрос
-// 			ToDo.find({}, function (err, result) {
-// 				if (err !== null) {
-// 					// элемент не был сохранен
-// 					res.send("ERROR");
-// 				}
-// 				res.json(result);
-// 			});
-// 		}
-// 	});
-// });
-
-// app.use(express.static('../client'))
-// app.use('/css', express.static(__dirname + '/styles/css'))
-// // app.use(express.static(__dirname))
-// app.use(express.json())
-
-// app.set('views', '../client/views')
-// app.set('view engine', 'ejs')
-
-// app.get('/books/:category', (req, res) => {
-// 	var category = req.params.category;
-// 	bookShop.find({ "category":  category }, function (err,  result) {
-// 		if (err !== null) {
-// 			console.log("ERROR" + err);
-// 			res.status(500).json(err);
-// 		} else {
-// 			if (result.length > 0) {
-// 				res.status(200).json(result);
-// 			} else {
-// 				res.json(result);
-// 			}
-// 		}
-// 	});
-// })

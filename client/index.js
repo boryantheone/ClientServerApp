@@ -1,29 +1,51 @@
 
-function render () {
-	const productsStore =  localStorageUtil.getProducts();
-	
+function render() {
+	const productsStore = localStorageUtil.getProducts();
+
 	headerPage.render(productsStore.length);
 	productsPage.render();
 }
 
-function render_category () {
-	const productsStore =  localStorageUtil.getProducts();
-	
-	ROOT_SHOPPING.innerHTML = '';
-	headerPage.render(productsStore.length);
-	productsPage.render_category();
-}
-
-
 let CATALOG = [];
 
-$.get("/product", function(books) {
+$.get("/product", function (books) {
 	CATALOG = books;
 	render();
 })
 
-// $.get("/product/fiction", function(books){
-// 	console.log("xsudjsdfd");
-// 	$('.products-container').empty();
-	
-// });
+$(document).ready(function () {
+	$("#btn_search").click(function () {
+		let htmlCatalog = '';
+		var CATALOG = [];
+		var request = $(".header-search__input").val();
+		console.log(request);
+		if (request != "") {
+			$.get("/product_search/" + request, function (res) {
+				$('.products-container').empty();
+				console.log(res);
+				if (res.length > 0) {
+					CATALOG = res;
+					CATALOG.forEach(({ name, author, price, img }) => {
+						htmlCatalog += `
+						<li class="products-elements">
+							<span class="products-elements__name">${name}</span>
+							<span class="products-elements__author">${author}</span>
+							<img class="products-elements__img" src='${img}' />
+							<span class="products-elements__price">
+								💌${price.toLocaleString()} RUB
+							</span>
+						</li>
+					`;
+						$('.products-container').append(htmlCatalog);
+					});
+				} 
+				else {
+					console.log("i hate js");
+					var label = $('<img style="width: -webkit-fill-available;" src="https://incart.designmyshop.ru/wa-data/public/hub/upload/images/snimok-4.png">')
+					$('.products-container').append(label);
+				}
+			})
+			document.getElementById("inputValue").value = "";
+		}
+	});
+});
