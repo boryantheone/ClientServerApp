@@ -12,6 +12,7 @@
 }
 
 .registration-cssave {
+	background-color: var(--color-medium);
 	height: 200px;
 	width: 300px;
 	top: 14%;
@@ -23,16 +24,21 @@
 	z-index: 2;/* поверх всех */
 	position: fixed;/* фиксированное позиционирование, окно стабильно при прокрутке */
 	padding: 15px;
+	font-family: Georgia;
+	max-width: 800px;
+	padding: 50px 50px;
+	border-radius: 10px;
+	box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.registration-cssave form {
+/* .registration-cssave form {
 	font-family: Georgia;
 	max-width: 800px;
 	padding: 50px 50px;
 	border-radius: 10px;
 	box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.2);
 	background-color: var(--color-medium);
-}
+} */
 
 .registration-cssave form h3 {
 	font-weight: bold;
@@ -45,7 +51,7 @@
 	padding: 10px 20px;
 }
 
-.registration-cssave .create-account {
+.registration-cssave .btn_registr_account {
 	font-family: Georgia;
 	border-radius: 30px;
 	padding: 10px 10px;
@@ -55,6 +61,18 @@
 	border: none;
 	color: black;
 	margin-top: 20px;
+}
+
+.registration-cssave .btn_enter_account {
+    font-family: Georgia;
+    border-radius: 20px;
+    padding: 10px 5px;
+    font-size: 18px;
+    font-weight: bold;
+    background-color: var(--color-white);
+    border: none;
+    color: black;
+    margin-top: 10px;
 }
 
 /* @media (max-width: 576px) {

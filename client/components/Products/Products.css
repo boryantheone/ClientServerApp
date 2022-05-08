@@ -55,39 +55,69 @@
 	border-top-left-radius: 70em;
   }
 
+
 .product-widget__list-a-1 {
+	font-family: Georgia;
 	text-decoration: none;
 	color: #712bcc;
+	border: none;
+	background: var(--color-white);
+	cursor: pointer;
 }
 
+
 .product-widget__list-a-2 {
+	font-family: Georgia;
 	text-decoration: none;
 	color: #712bcc;
+	border: none;
+	background: var(--color-white);
+	cursor: pointer;
 }
 
 .product-widget__list-a-3 {
+	font-family: Georgia;
 	text-decoration: none;
 	color: #712bcc;
+	border: none;
+	background: var(--color-white);
+	cursor: pointer;
 }
 
 .product-widget__list-a-4 {
+	font-family: Georgia;
 	text-decoration: none;
 	color: #712bcc;
+	border: none;
+	background: var(--color-white);
+	cursor: pointer;
 }
 
 .product-widget__list-a-5 {
+	font-family: Georgia;
 	text-decoration: none;
 	color: #712bcc;
+	border: none;
+	background: var(--color-white);
+	cursor: pointer;
 }
 
 .product-widget__list-a-6 {
+	font-family: Georgia;
 	text-decoration: none;
 	color: #712bcc;
+	border: none;
+	background: var(--color-white);
+	cursor: pointer;
 }
 
 .product-widget__list-a-7 {
+	font-family: Georgia;
 	text-decoration: none;
 	color: #712bcc;
+	border: none;
+	background: var(--color-white);
+	cursor: pointer;
 }
 
 

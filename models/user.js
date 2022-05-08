@@ -1,10 +1,10 @@
 var mongoose = require("mongoose");
 
 var userSchema = mongoose.Schema({
-	login: String,
-	rule: String,
-	cart: [String]
+	login: {type: String, unique: true, required: true},
+	pos: String,
+	cart: [[]]
 });
 
-var users = mongoose.model("user", userSchema, "users");
+var users = mongoose.model("users", userSchema, "users");
 module.exports = users;

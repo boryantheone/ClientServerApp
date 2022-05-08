@@ -9,7 +9,7 @@
 	<link rel="icon" type="image/png" href="img/favicon.png">
 	<base href="/">
 	<link rel="stylesheet" type="text/css" href="index.css">
-	
+
 </head>
 
 <body>
@@ -25,11 +25,11 @@
 	<script src="utils/localStorageUtil.js"></script>
 
 	<!-- Header -->
-	<script src="components/Header/Header.js"></script>
+	<script src="components/Header/Header_user.js"></script>
 	<link rel="stylesheet" href="components/Header/Header.css">
 
 	<!-- Products -->
-	<script src="components/Products/Products.js"></script>
+	<script src="components/Products/Products_users.js"></script>
 	<link rel="stylesheet" href="components/Products/Products.css">
 
 	<!-- Shopping -->
@@ -40,13 +40,21 @@
 	<script src="components/Footer/Footer.js"></script>
 	<link rel="stylesheet" href="components/Footer/Footer.css">
 
-	<script src="components/Authorize/Authorize.js"></script>
-	<link rel="stylesheet" href="components/Authorize/Authorize.css">
+	<!-- <script src="components/Authorize/Authorize.js"></script>
+	<link rel="stylesheet" href="components/Authorize/Authorize.css"> -->
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-	<script src="index.js"></script>
+	<script src="user_index.js"></script>
 
+	<script>
+		$(document).ready(function () {
+			// $('.header-container').append('<div class="header-container_authorize"></div>');
+			// var label_name = $('<p class="name">Пользователь</p>');
+			// label_name.css('font-family', 'Georgia');
+			// $('.header-container_authorize').append(label_name);
+		});
+	</script> 
 </body>
 
 </html>

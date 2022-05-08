@@ -14,6 +14,18 @@ var Product = require("../models/product.js"),
 		});
 	};
 
+	ProductsController.productListUser = function(req, res) {
+		Product.find({}, function (err, result) {
+			if (result.length === 0) {
+				res.status(404).json({"result_length" : 0});
+			}
+			else {
+				console.log("Вы на главной странице!")
+				res.json(result);
+			}
+		});
+	};
+
 	ProductsController.showByCategory = function(req, res){
 		var categoryLink = req.params.category
 		Product.find({'category': req.params.category}, function(err, result){
@@ -32,6 +44,26 @@ var Product = require("../models/product.js"),
 			}
 		});
 	};
+
+	ProductsController.showByCategoryUser = function(req, res){
+		var categoryLink = req.params.category
+		Product.find({'category': req.params.category}, function(err, result){
+			if (err != null){
+				console.log("Error! -> " + err);
+				res.status(500).json(err);
+			} else {
+				if (result.length > 0) {
+					// console.log(result);
+					console.log("Вы выбрали категорию " + " " + categoryLink);
+					res.status(200).json(result);
+				} else {
+					console.log("Нет результатов по данной категории");
+					res.send(400);
+				}
+			}
+		});
+	};
+
 
 	ProductsController.search = function(req, res) {
 		var search_req = req.params.name;

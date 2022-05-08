@@ -166,13 +166,13 @@ class Products {
 				<div class="product-widget">
 					<h3 class="product-widget__title" style="text-align: center;">Категории</h3>
 					<ul class="product-widget__list">
-						<li><a class="product-widget__list-a-1" category-filter="fiction" href="#" onclick="productsPage.handleCategory1();">Художественная литература</a></li>
-			  			<li><a class="product-widget__list-a-2" category-filter="childrenBooks" href="#" onclick="productsPage.handleCategory2();">Детские книги</a></li>
-			  			<li><a class="product-widget__list-a-3" category-filter="bookTeenagers" href="#" onclick="productsPage.handleCategory3();">Книги для подростков</a></li>
-						<li><a class="product-widget__list-a-4" category-filter="businessLiterature" href="#" onclick="productsPage.handleCategory4();">Бизнес-литература</a></li>
-						<li><a class="product-widget__list-a-5" category-filter="selfEducation" href="#" onclick="productsPage.handleCategory5();">Самообразование и саморазвитие</a></li>
-						<li><a class="product-widget__list-a-6" category-filter="eduBooks" href="#" onclick="productsPage.handleCategory6();">Учебная литература</a></li>
-						<li><a class="product-widget__list-a-7" category-filter="hobbyBooks" href="#" onclick="productsPage.handleCategory7();">Хобби и досуг</a></li>
+						<li><button class="product-widget__list-a-1" category-filter="fiction"  onclick="productsPage.handleCategory1();">Художественная литература</button></li>
+			  			<li><button class="product-widget__list-a-2" category-filter="childrenBooks" onclick="productsPage.handleCategory2();">Детские книги</button></li>
+			  			<li><button class="product-widget__list-a-3" category-filter="bookTeenagers"  onclick="productsPage.handleCategory3();">Книги для подростков</button></li>
+						<li><button class="product-widget__list-a-4" category-filter="businessLiterature"  onclick="productsPage.handleCategory4();">Бизнес-литература</button></li>
+						<li><button class="product-widget__list-a-5" category-filter="selfEducation"  onclick="productsPage.handleCategory5();">Самообразование и саморазвитие</button></li>
+						<li><button class="product-widget__list-a-6" category-filter="eduBooks"  onclick="productsPage.handleCategory6();">Учебная литература</button></li>
+						<li><button class="product-widget__list-a-7" category-filter="hobbyBooks"  onclick="productsPage.handleCategory7();">Хобби и досуг</button></li>
 					</ul>
 		 		</div>
 				<ul class="products-container">

@@ -24,7 +24,13 @@
 
 .header-container__logo a {
     text-decoration: none; /* Убираем подчёркивание */
-   }
+	color: black;
+}
+
+.header-container__logo a:visited {
+    text-decoration: none; /* Убираем подчёркивание */
+	color: black;
+}
 
 .header-container__logo big {
    display: table-caption;
@@ -42,7 +48,7 @@
 
 .header-container_authorize__btn {
 	font-family: Georgia;
-	border-color: var(--color-light);
+	border-color:  #ffa2c2;
 	border-radius: 10px;
 	cursor: pointer;
 }
@@ -83,16 +89,23 @@
 	justify-content: center;
 }
 
-.header-search:after {
-	content:""; 
+/* .header-search:after {
 	clear:both; 
 	display:table
+} */
+
+.header-container .exit_div {
+	display: flex;
+	align-items: center;
+	margin-right: 15px;
 }
 
-.header-search__form {
-  width: auto;
-  float: right;
-  margin-right: 30px;
+.header-container .exit {
+	align-items: center;
+	color: black;
+	text-decoration: none;
+	font-family: Georgia;
+	text-align: center;
 }
 
 .header-search__input {
@@ -106,22 +119,20 @@
   /* position: relative; */
   transition: .3s linear;
 }
-.header-search__input:focus {
-  width: 300px;
-}
+
 
 .header-search__btn {
   width: 42px;
   height: 42px;
   background: none;
-  background-image: url(img/search.svg);
-  border: none;
-  /* position: absolute; */
+  background-image: url(img/search.svg); 
   top: -2px;
   right: 0;
+  border: none;
 }
-.header-search__btn:before{
-  content: "\f002";
-  font-family: FontAwesome;
-  color: rgba(28,28,28,0);
-}
+
+/* .header-search__btn:before{
+  /* content: "\f002";
+  font-family: FontAwesome; */
+  /* color: rgba(28,28,28,0); */
+/* }  */

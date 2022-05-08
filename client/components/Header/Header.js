@@ -26,9 +26,9 @@ class Header {
 			
 			</div>
 			<div class="header-container_authorize">
-				<button class="header-container_authorize__btn" onclick="headerPage.handlerOpenAuthorizePage();">Вход</button>
+				<button class="header-container_authorize__btn"  onclick="headerPage.handlerOpenAuthorizePage();">Вход</button>
 				<span class="header-container__authorize-seporator">/</span>
-				<button class="header-container_authorize__btn" onclick="headerPage.handlerOpenRegistrationPage();">Регистрация</button>
+				<button class="header-container_authorize__btn"  onclick="headerPage.handlerOpenRegistrationPage();">Регистрация</button>
 			</div>
 			<div class="header-counter" onclick="headerPage.handlerOpenShoppingPage();">
 				<p class="header-counter__fig">${count}</p>
