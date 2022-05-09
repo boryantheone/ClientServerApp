@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BookShop</title>
+	<link rel="icon" type="image/png" href="img/favicon.png">
+	<base href="/">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" type="text/css" href="./components/Footer/Footer.css">
+	<link rel="stylesheet" type="text/css" href="admin_style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+	<div class="admin_header">
+		<div class="header-container">
+			<div class="header-container__logo">
+				<p><img src="components/Header/img/book.png" width="42" height="42" alt="">
+					<big>Добрейшие книжки</big>
+				</p>
+			</div>
+			<p>Страница администратора</p>
+			<p><a href="index.html">Выйти</a></p>
+		</div>
+	</div>
+	<div class="admin_main">
+		<div class="admin_panel">
+			<p>Введите имя пользователя</p>
+			<!-- <p>Введите тип пользователя</p> -->
+			<input class="input_to" id="input_to" type="text">
+			<button class="users_button" id="reg_button">Создать аккаунт</button>
+			<button class="users_button" id="ed_button">Редактировать имя аккаунта</button>
+			<button class="users_button" id="del_button">Удалить аккаунт</button>
+		</div>
+		<div class="admin_list">
+			<ul class="list_users">Список пользователей</ul>
+		</div>
+
+	</div>
+	<div class="admin-footer">
+		<div class="footer">
+			<div class="footer-info">
+				<h5><big>Контактная информация</big></h5>
+				<p>📚Добрейшие книжки📚</p>
+				<p>▪️555 50-я улица</p>
+				<p>▪️Татарстан, Казань 28801</p>
+				<p>▪️89534086854</p>
+				<p>▪️bookshop@mail.ru</p>
+			</div>
+			<div class="footer-contact">
+				<h5><big>Присоединяйтесь к нам в соцсетях</big></h5>
+				<ul class="footer-social-icons">
+					<li><a class="footer-social-icon-vk" href="#" title="..." target="_blank" rel="noopener"><img
+								src="components/Footer/img/vk.png"></a></li>
+					<li><a class="footer-social-icon-telegram" href="#" title="..." target="_blank" rel="noopener"><img
+								src="components/Footer/img/tg.png"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script>
+		$(document).ready(function () {
+			$("#reg_button").on("click", function () {
+				var login = $(".input_to").val();
+				var type = prompt("Введите тип пользователя");
+				if (login != "") {
+					if (type == "Пользователь") {
+						console.log("+");
+						$.post("/users/admin/user/" + login, function (result) {
+							console.log(result);
+						}).done(function (response) {
+							console.log(response);
+							alert('Аккаунт создан!');
+						}).fail(function (jqXHR, textStatus, error) {
+							console.log(error);
+							if (jqXHR.status === 501) {
+								alert("Такой пользователь уже существует!");
+							} else {
+								alert("Ошибка!" + jqXHR.status + " " + jqXHR.textStatus);
+							}
+						});
+					} else if (type == "Модератор") {
+						$.post("/users/admin/moder/" + login, function (result) {
+							console.log(result);
+						}).done(function (response) {
+							console.log(response);
+							alert('Аккаунт создан');
+						}).fail(function (jqXHR, textStatus, error) {
+							console.log(error);
+							if (jqXHR.status === 501) {
+								alert("Такой пользователь уже существует!");
+							} else {
+								alert("Ошибка!" + jqXHR.status + " " + jqXHR.textStatus);
+							}
+						});
+					}
+					else if (type != "Пользователь" | type != "Модератор") {
+						alert("Ошибка! Такой тип пользователя невозможен! ");
+					}
+					document.getElementById("input_to").value = "";
+					location.reload();
+				}
+			})
+		});
+
+		$(document).ready(function () {
+			$("#del_button").on("click", function () {
+				var login = $(".input_to").val();
+				if (login != "") {
+					if (login == "admin") {
+						alert("Нельзя удалить администратора!");
+						document.getElementById("input_to").value = "";
+						return;
+					}
+					alert("Действительно хотите удалить пользователя с именем " + login + "?");
+					$.ajax({
+						'url': '/users/' + login,
+						'type': 'DELETE',
+					}).done(function (response) {
+						console.log(response);
+						alert('Аккаунт удален!');
+					}).fail(function (jqXHR, textStatus, error) {
+						console.log(error)
+						alert("Ошибка!" + jqXHR.status + " " + jqXHR.textStatus);
+					});
+					document.getElementById("input_to").value = "";
+					location.reload();
+				}
+			});
+		});
+
+		$(document).ready(function () {
+			$("#ed_button").on("click", function () {
+				var login = $(".input_to").val();
+				var new_login = prompt("Дайте пользователю новое имя ");
+				if (login != "" && new_login !="") {
+					$.ajax({
+						'url': '/users/' + login + '/' + new_login,
+						'type': 'PUT',
+						'data': {'login': new_login}
+					}).done(function (response) {
+						console.log(response);
+						alert('Имя пользователя изменено!');
+					}).fail(function (jqXHR, textStatus, error) {
+						console.log(error)
+						alert("Ошибка!" + jqXHR.status + " " + jqXHR.textStatus);
+					});
+					document.getElementById("input_to").value = "";
+					location.reload();
+				}
+			});
+		});
+
+
+		$.get("/users/admin/users", function (users) {
+			let users_catalog = [];
+			console.log(users.length);
+			if (users.length > 0){
+				for (var i = users.length-1; i >= 0; i--){
+					users_catalog.push(users[i]);
+				}
+				console.log(users_catalog);
+				for (var i = users_catalog.length-1; i >= 0; i--){
+					html = "";
+					var html = $('<li>'+ users_catalog[i].login + "     " +users_catalog[i].pos + '</li>');
+					$('.list_users').append(html);
+					html = "";
+				}
+			} else {
+				var html = $('<li>'+ "Еще нет пользователей" +'</li>');
+				$('.list_users').append(html);
+			}
+		});
+
+	</script>
+</body>
+
+</html>

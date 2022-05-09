@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>BookShop</title>
+	<link rel="icon" type="image/png" href="img/favicon.png">
+	<base href="/">
+	<link rel="stylesheet" type="text/css" href="index.css">
+	<link rel="stylesheet" type="text/css" href="./components/Footer/Footer.css">
+	<link rel="stylesheet" type="text/css" href="admin_style.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+
+<body>
+	<div class="admin_header">
+		<div class="header-container">
+			<div class="header-container__logo">
+				<p><img src="components/Header/img/book.png" width="42" height="42" alt="">
+					<big>Добрейшие книжки</big>
+				</p>
+			</div>
+			<p>Страница модератора</p>
+			<p><a href="index.html">Выйти</a></p>
+		</div>
+	</div>
+	<div class="moder_main">
+		<div class="moder_panel_main">
+			<div class="moder_panel">
+				<!-- <p>Введите название книги</p> -->
+				<!-- <p>Введите тип пользователя</p> -->
+				<input class="input_to" id="name_book" type="text" placeholder="Введите название книги">
+				<button class="mod_button" id="mod_add_button">Добавить</button>
+				<button class="mod_button" id="mod_edit_button">Редактировать</button>
+				<button class="mod_button" id="mod_del_button">Удалить</button>
+			</div>
+			<div class="book_info"></div>
+		</div>
+		<div class="moder_list">
+			<ul class="list_books">Список книг</ul>
+		</div>
+
+	</div>
+	<div class="admin-footer">
+		<div class="footer">
+			<div class="footer-info">
+				<h5><big>Контактная информация</big></h5>
+				<p>📚Добрейшие книжки📚</p>
+				<p>▪️555 50-я улица</p>
+				<p>▪️Татарстан, Казань 28801</p>
+				<p>▪️89534086854</p>
+				<p>▪️bookshop@mail.ru</p>
+			</div>
+			<div class="footer-contact">
+				<h5><big>Присоединяйтесь к нам в соцсетях</big></h5>
+				<ul class="footer-social-icons">
+					<li><a class="footer-social-icon-vk" href="#" title="..." target="_blank" rel="noopener"><img
+								src="components/Footer/img/vk.png"></a></li>
+					<li><a class="footer-social-icon-telegram" href="#" title="..." target="_blank" rel="noopener"><img
+								src="components/Footer/img/tg.png"></a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script>
+		$.get("/product", function (books) {
+			let books_catalog = [];
+			console.log(books.length);
+			if (books.length > 0) {
+				for (var i = books.length - 1; i >= 0; i--) {
+					books_catalog.push(books[i]);
+				}
+				console.log(books_catalog);
+				for (var i = books_catalog.length - 1; i >= 0; i--) {
+					html = "";
+					var html = $('<li>' + books_catalog[i].name + '</li>');
+					$('.list_books').append(html);
+					html = "";
+				}
+			} else {
+				var html = $('<li>' + "Еще нет книг" + '</li>');
+				$('.list_books').append(html);
+			}
+		});
+
+
+		$('.moder_panel_main').on("click", '#mod_doadd_button', function () {
+			if ($('#name_book').val() != "") {
+				var _id = $('#mod_id_book').val();
+				var name = $('#name_book').val();
+				var author = $('#mod_author_book').val();
+				var img = $('#mod_img_book').val();
+				var price = $('#mod_price_book').val();
+				var category = $('#mod_category_book').val();
+
+				if (_id != "" && name != "" && author != "" && img != "" && price != "" && category != "") {
+					$.post("/product/add", { "_id": _id, "name": name, "author": author, "img": img, "price": price, "category": category }).done(function (response) {
+						alert('Книга добавлена!');
+						location.reload();
+					});
+				} else {
+					alert("Заполните поля!");
+				}
+			}
+		});
+
+		$('.moder_panel_main').on("click", '#mod_doedit_button', function () {
+			if ($('#name_book').val() != "") {
+				var _id = $('#mod_id_book').val();
+				var name = $('#name_book').val();
+				var new_name = $('#mod_name_book').val();
+				var author = $('#mod_author_book').val();
+				var img = $('#mod_img_book').val();
+				var price = $('#mod_price_book').val();
+				var category = $('#mod_category_book').val();
+
+				if (new_name == "" && name !== "") {
+					new_name = name;
+				}
+
+				if (_id != "" && name != "" && author != "" && img != "" && price != "" && category != "") {
+					var to_send = { "_id": _id, "name": new_name, "author": author, "img": img, "price": price, "category": category };
+					$.ajax({
+						'url': '/product/update',
+						'type': 'PUT',
+						'data': to_send
+					}).done(function (response) {
+						alert("Книга изменена!")
+						location.reload();
+					}).fail(function(response) {
+						alert("Такой книги нет!")
+					})
+				} else {
+					alert("Заполните поля!");
+				}
+			}
+		});
+
+		$("#mod_add_button").on("click", function () {
+			if ($('#name_book').val() != "") {
+				var name = $('#name_book').val();
+				$.get("/product", function (books) {
+					for (var i = books.length - 1; i >= 0; i--) {
+						if (books[i].name == name) {
+							alert("Такая книга уже есть!");
+							return;
+						}
+					}
+					$('.book_info').empty();
+					$('.book_info').append('<div class="mod_text_info"><span>ID книги(по типу el20)</span><span>ФИО автора</span><span>Ссылка на обложку книги</span><span>Цена</span><span>Категория</span></div>');
+					$('.book_info').append('<div class="mod_inputs_info"><input class="mod_input" id="mod_id_book"><input class="mod_input" id="mod_author_book"><input class="mod_input" id="mod_img_book"><input class="mod_input" id="mod_price_book"><select class="mod_input" id="mod_category_book"><option>fiction</option><option>childrenBooks</option><option>bookTeenagers</option><option>selfEducation</option><option>businessLiterature</option><option>hobbyBooks</option><option>eduBooks</option></select></div>');
+					$('.moder_panel_main').append('<button id="mod_doadd_button">Выполнить</button>');
+				});
+			}
+		})
+
+		$("#mod_edit_button").on("click", function () {
+			if ($('#name_book').val() != "") {
+				$('.book_info').empty();
+				$('#mod_doadd_button').remove();
+				$('#mod_doedit_button').remove();
+				$('.book_info').append('<div class="mod_text_info"><span>ID книги(по типу el20)</span><span>Новое название книги</span><span>ФИО автора</span><span>Ссылка на обложку книги</span><span>Цена</span><span>Категория</span></div>');
+				$('.book_info').append('<div class="mod_inputs_info"><input class="mod_input" id="mod_id_book"><input class="mod_input" id="mod_name_book"><input class="mod_input" id="mod_author_book"><input class="mod_input" id="mod_img_book"><input class="mod_input" id="mod_price_book"><select class="mod_input" id="mod_category_book"><option>fiction</option><option>childrenBooks</option><option>bookTeenagers</option><option>selfEducation</option><option>businessLiterature</option><option>hobbyBooks</option><option>eduBooks</option></select></div>');
+				$('.moder_panel_main').append('<button id="mod_doedit_button">Выполнить</button>');
+				var name = $('#name_book').val();
+				$.get('/product_search/' + name, function (res) {
+					
+					$('#mod_id_book').val(res[0]._id);
+					$('#mod_name_book').val(res[0].name);
+					$('#mod_author_book').val(res[0].author);
+					$('#mod_img_book').val(res[0].img);
+					$('#mod_price_book').val(res[0].price);
+					$('#mod_category_book').val(res[0].category);
+				});
+			}
+		});
+
+		$('#mod_del_button').on('click', function () {
+			if ($('#name_book').val() != "") {
+				$('#book_info').empty();
+				$('#mod_doadd_button').remove();
+				$('#mod_doedit_button').remove();
+
+
+				if (confirm("Вы действительно хотите удалить книгу ?")) {
+					var name = $('#name_book').val();
+
+					$.ajax({
+						'url': '/product/delete/' + name,
+						'type': 'DELETE'
+					}).done(function (response) {
+						console.log(response);
+						alert("Книга удалена!");
+					}).fail(function (jqXHR, textStatus, error) {
+						console.log(error);
+						alert("Error! Такой книги нет или неправильно написано название!" + jqXHR.status + " " + jqXHR.textStatus);
+					});
+				}
+
+			}
+		});
+
+
+	</script>
+</body>
+
+</html>

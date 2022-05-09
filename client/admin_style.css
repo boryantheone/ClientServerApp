@@ -1,0 +1,123 @@
+* {
+	box-sizing: border-box;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	line-height:  1.7;
+	background-color:  #ffa2c2;
+}
+
+	.admin_main {
+		width: max-content;
+		display: flex;
+		justify-items: stretch;
+		/* margin-left: 13%; */
+	}
+
+	.moder_main {
+		width: max-content;
+		display: flex;
+		justify-items: stretch;
+		/* margin-left: 13%; */
+	}
+
+	.admin_panel {
+		display: grid;
+		margin-left: 65%;
+	}
+
+	.admin_list {
+		margin-left: 70%;
+	}
+
+.header-container {
+	display: flex;
+	height: 70px;
+	padding: var(--spacing-medium);
+	background-color: var(--color-medium);
+	justify-content: space-between;
+	text-decoration: none;
+}
+
+.header-container__logo {
+	display: flex;
+	align-items: center;
+	font-family: Georgia;
+	white-space: nowrap;
+}
+
+.header-container__logo a {
+    text-decoration: none; /* Убираем подчёркивание */
+	color: black;
+}
+
+.header-container p {
+	display: flex;
+	align-items: center;
+	font-family: Georgia;
+	white-space: nowrap;
+}
+
+ul {
+	padding-left: 40px;
+	margin-top: 1em;
+	margin-bottom: 1em;
+}
+
+.input_to {
+	margin-bottom: 5px;
+}
+
+.users_button {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	margin-bottom: 5px;
+}
+
+.mod_button {
+	font-family: Georgia, 'Times New Roman', Times, serif;
+	margin-right: 4px;
+}
+
+.moder_panel {
+	margin-left: 5%;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	margin-top: 30px;
+}
+.moder_panel input {
+	width: 160px;
+}
+
+.moder_list {
+	margin-left: 10%;
+}
+.mod_text_info {
+	display: flex;
+	flex-direction: column;
+	font-size: small;
+	margin-left: 30px;
+}
+
+.mod_inputs_info {
+	margin-left: 35px;
+	display: flex;
+	flex-direction: column;
+}
+
+.book_info {
+	display: flex;
+	flex-direction: row;
+
+}
+
+#mod_doadd_button {
+	margin-left: 100px;
+}
+
+#mod_doedit_button {
+	margin-left: 100px;
+}

@@ -1,3 +1,5 @@
+const { use } = require("express/lib/application");
+
 var express = require("express"),
 	http = require("http"),
 	mongoose = require("mongoose"),
@@ -28,8 +30,19 @@ console.log("Server start 3000")
 app.get("/product", productController.productList);
 app.get("/product/:category", productController.showByCategory);
 app.get("/product_search/:name", productController.search);
+app.post("/product/add", productController.addBook);
+app.delete("/product/delete/:name", productController.deleteBook);
+app.put("/product/update", productController.updateBook);
 
 
 app.get("/users/:login", usersController.show);
+app.get("/users/admin/users", usersController.index);
 app.post("/signup/:login", usersController.createUser);
+app.post("/users/admin/user/:login", usersController.createUser);
+app.post("/users/admin/moder/:login", usersController.createModer);
+app.delete("/users/:login", usersController.delete);
+app.put("/users/:login/:new_login", usersController.edit);
+
+// app.get("/users/moder/:login", productController.productList);
+
 

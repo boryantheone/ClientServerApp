@@ -14,10 +14,10 @@ $.get("/product", function (books) {
 })
 
 $(document).ready(function () {
-	$("#btn_search").click(function () {
+	$("#btn_search").on('click', (function () {
 		let htmlCatalog = '';
 		var CATALOG = [];
-		var request = $(".header-search__input").val();
+		var request = $("#inputValue").val();
 		console.log(request);
 		if (request != "") {
 			$.get("/product_search/" + request, function (res) {
@@ -41,12 +41,12 @@ $(document).ready(function () {
 					});
 				}
 				else {
-					console.log("i hate js");
+					console.log("По поиску ничего не найдено!");
 					var label = $('<img style="width: -webkit-fill-available;" src="https://incart.designmyshop.ru/wa-data/public/hub/upload/images/snimok-4.png">')
 					$('.products-container').append(label);
 				}
 			})
 			document.getElementById("inputValue").value = "";
 		}
-	});
+	}));
 });

@@ -20,9 +20,9 @@ var users = require("../models/user.js"),
 // 	}
 // });
 
-UsersController.index = function(req, res){
-	users.find(function(err, users){
-		if (err != null){
+UsersController.index = function (req, res) {
+	users.find(function (err, users) {
+		if (err != null) {
 			console.log("Error! ->" + err);
 			res.json(500, err);
 		} else {
@@ -31,22 +31,22 @@ UsersController.index = function(req, res){
 	});
 };
 
-UsersController.show = function(req, res){
+UsersController.show = function (req, res) {
 	var log = req.params.login;
 	console.log("Пользователь " + log + " заходит в систему!");
-	users.find({'login': log}, function(err, result) {
+	users.find({ 'login': log }, function (err, result) {
 		if (err) {
 			console.log("Ошибка! -> " + err);
 		} else if (result.length !== 0) {
 			console.log("я выбираю роль");
-			if (result[0].pos == 'Пользователь'){
+			if (result[0].pos == 'Пользователь') {
 				res.sendfile('./client/user.html');
 			}
-			else if (result[0].pos == 'Администратор'){
+			else if (result[0].pos == 'Администратор') {
 				console.log("я выбрал админа");
 				res.sendfile('./client/admin.html');
 			}
-			if (result[0].pos == 'Модератор'){
+			if (result[0].pos == 'Модератор') {
 				res.sendfile('./client/moder.html');
 			}
 		} else {
@@ -55,10 +55,10 @@ UsersController.show = function(req, res){
 	});
 };
 
-UsersController.createUser = function(req, res) {
+UsersController.createUser = function (req, res) {
 	var login = req.params.login;
-	console.log(login);
-	users.find({'login': login}, function(err, result) {
+	console.log("Добавляем пользователя под именем -> " + login);
+	users.find({ 'login': login }, function (err, result) {
 		if (err) {
 			console.log("Ошибка! -> " + err);
 			res.send(500, err);
@@ -70,9 +70,9 @@ UsersController.createUser = function(req, res) {
 				"login": login,
 				"pos": "Пользователь"
 			});
-			newUser.save(function(err, result) {
+			newUser.save(function (err, result) {
 				console.log(err);
-				if (err !== null){
+				if (err !== null) {
 					res.json(500, err);
 				} else {
 					res.json(200, result);
@@ -83,5 +83,71 @@ UsersController.createUser = function(req, res) {
 	});
 };
 
+UsersController.createModer = function (req, res) {
+	var login = req.params.login;
+	console.log("Добавляем модератора под именем -> " + login);
+	users.find({ 'login': login }, function (err, result) {
+		if (err) {
+			console.log("Ошибка! -> " + err);
+			res.send(500, err);
+		} else if (result.length !== 0) {
+			console.log("уже есть в системе");
+			res.send(501, err);
+		} else {
+			var newUser = new users({
+				"login": login,
+				"pos": "Модератор"
+			});
+			newUser.save(function (err, result) {
+				console.log(err);
+				if (err !== null) {
+					res.json(500, err);
+				} else {
+					res.json(200, result);
+					console.log("Добавление произошло успешно!");
+				}
+			});
+		}
+	});
+};
+
+UsersController.delete = function (req, res) {
+	var login = req.params.login;
+	console.log("Удаляем пользователя под именем -> " + login);
+	users.find({ 'login': login }, function (err, result) {
+		if (err) {
+			console.log("Ошибка! -> " + err);
+			res.send(500, err);
+		} else if (result.length !== 0) {
+			users.deleteOne({ "login": login }, function (err, result) {
+				if (err !== null) {
+					console.log("Ошибка! -> " + err);
+					res.json(500, err);
+				} else {
+					res.json(200, result);
+					console.log("Удаление произошло успешно!");
+				}
+			});
+		} else {
+			console.log("Ошибка! -> " + err);
+			res.status(404).send("Пользователя не существует!");
+		}
+	});
+};
+
+UsersController.edit = function (req, res) {
+	var login = req.params.login;
+	console.log("Изменяем пользователя под именем -> " + login);
+	var new_login = { $set: { login: req.params.new_login } };
+	users.updateOne({ 'login': login }, new_login, function (err, result) {
+		if (err !== null) {
+			console.log("Ошибка! -> " + err);
+			res.send(500, err);
+		} else {
+			res.json(200, result);
+			console.log("Удаление произошло успешно!");
+		}
+	});
+}
 
 module.exports = UsersController;
