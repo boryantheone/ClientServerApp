@@ -112,6 +112,8 @@ var Product = require("../models/product.js"),
 		});
 	};
 
+	
+
 module.exports = ProductsController;
 
 	

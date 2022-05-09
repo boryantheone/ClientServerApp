@@ -20,6 +20,24 @@ class Products {
 
 	}
 
+	returnProductsFromCart() {
+		var cart = [];
+
+		var list = document.location.href.split('/');
+		var login = list[list.length - 2];
+		console.log(login);
+
+		$.get("/users/" + login + "/cart", function(result){
+			console.log(result);
+			cart = result.cart;
+			console.log(cart);
+		})
+	}
+
+	pushToCart() {
+		
+	}
+
 	handleCategory1() {
 		var catalog = $('.products-container'),
 			categoryLink = $('.product-widget__list-a-1').attr('category-filter');
@@ -141,6 +159,7 @@ class Products {
 
 
 	render() {
+		this.returnProductsFromCart();
 		const productsStorage = localStorageUtil.getProducts();
 		let htmlCatalog = '';
 

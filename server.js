@@ -42,6 +42,7 @@ app.post("/users/admin/user/:login", usersController.createUser);
 app.post("/users/admin/moder/:login", usersController.createModer);
 app.delete("/users/:login", usersController.delete);
 app.put("/users/:login/:new_login", usersController.edit);
+app.get("/users/:login/cart", usersController.checkCart);
 
 // app.get("/users/moder/:login", productController.productList);
 

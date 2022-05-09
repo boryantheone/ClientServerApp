@@ -150,4 +150,21 @@ UsersController.edit = function (req, res) {
 	});
 }
 
+
+UsersController.checkCart = function(req, res) {
+	var login = req.params.login;
+	console.log("Смотрим содержимое корзины пользователя под именем "+ login);
+	users.find({ 'login': login }, function (err, result) {
+		if (err) {
+			console.log("Ошибка! -> " + err);
+			res.send(500, err);
+		} else if (result.length !== 0) {
+			res.json(200, result);
+		} else {
+			console.log("Ошибка! -> " + err);
+			res.status(404).send("Пользователя не существует!");
+		}
+	})
+}
+
 module.exports = UsersController;
