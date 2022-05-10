@@ -74,6 +74,8 @@ var Product = require("../models/product.js"),
 		});
 	};
 
+	
+
 	ProductsController.showByCategory = function(req, res){
 		var categoryLink = req.params.category
 		Product.find({'category': req.params.category}, function(err, result){

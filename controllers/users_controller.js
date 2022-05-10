@@ -165,6 +165,18 @@ UsersController.checkCart = function(req, res) {
 			res.status(404).send("Пользователя не существует!");
 		}
 	})
-}
+};
+
+UsersController.updateCart = function(req, res) {
+	console.log("Добавляем  книги -> " + req.body.name);
+	users.updateOne({"login": req.body.login}, {"_id": req.body._id,"name": req.body.name, "author": req.body.author, "img": req.body.img, "price": req.body.price, "category": req.body.category }, function(err, result){
+		if (err !== null) {
+			console.log("Error! -> " + err);
+			res.json(500, err);
+		} else {
+			res.json(200, result);
+		}
+	});
+};
 
 module.exports = UsersController;

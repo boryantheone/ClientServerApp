@@ -21,21 +21,42 @@ class Products {
 	}
 
 	returnProductsFromCart() {
-		var cart = [];
+		try {
+			var cart = [];
 
+			var list = document.location.href.split('/');
+			var login = list[list.length - 2];
+			console.log(login);
+
+			$.get("/users/" + login + "/cart", function (result) {
+				console.log(result);
+				cart = result.cart;
+				console.log(cart);
+			})
+			if (cart.length !== 0) {
+				return (cart);
+			}
+			return [];
+		} catch (error) {
+			console.log(error);
+		}
+	}
+
+	pushToCart(_id) {
+	
 		var list = document.location.href.split('/');
 		var login = list[list.length - 2];
 		console.log(login);
 
-		$.get("/users/" + login + "/cart", function(result){
-			console.log(result);
-			cart = result.cart;
-			console.log(cart);
-		})
-	}
 
-	pushToCart() {
-		
+		$.post("/users/" + login + "/cart_add", {"cart" : _id}).done(function(response) {
+			alert('Книга добавлена в корзину!');
+		}).fail(function (jqXHR, textStatus, error) {
+			console.log(error);
+			alert("Ошибка!" + jqXHR.status + " " + jqXHR.textStatus);
+			
+		});
+
 	}
 
 	handleCategory1() {
@@ -108,19 +129,19 @@ class Products {
 
 	handleCategory5() {
 		var catalog = $('.products-container'),
-		categoryLink = $('.product-widget__list-a-5').attr('category-filter');
+			categoryLink = $('.product-widget__list-a-5').attr('category-filter');
 
-	console.log(categoryLink)
-	$('.products-container').empty();
+		console.log(categoryLink)
+		$('.products-container').empty();
 
-	$.get("/product/" + categoryLink, function (result) {
-		CATALOG = [];
-		CATALOG = result;
-		console.log(result);
-		const productsStore = localStorageUtil.getProducts();
-		headerPageUser.renderHeaderUser(productsStore.length);
-		productsPageUser.render();
-	});
+		$.get("/product/" + categoryLink, function (result) {
+			CATALOG = [];
+			CATALOG = result;
+			console.log(result);
+			const productsStore = localStorageUtil.getProducts();
+			headerPageUser.renderHeaderUser(productsStore.length);
+			productsPageUser.render();
+		});
 	}
 
 	handleCategory6() {
@@ -159,8 +180,9 @@ class Products {
 
 
 	render() {
-		this.returnProductsFromCart();
-		const productsStorage = localStorageUtil.getProducts();
+		// const this.returnProductsFromCart();
+		// const productsStorage = localStorageUtil.getProducts();
+		const productsStorage = this.returnProductsFromCart();
 		let htmlCatalog = '';
 
 		CATALOG.forEach(({ _id, name, author, price, img }) => {
@@ -182,7 +204,7 @@ class Products {
 					<span class="products-elements__price">
 						💌${price.toLocaleString()} RUB
 					</span>
-					<button class="products-elements__btn${activeClass}" onclick="productsPageUser.handleSetLocationStorage(this, '${_id}');">${activeText}</button>
+					<button class="products-elements__btn${activeClass}" onclick="productsPageUser.pushToCart('${_id}');">${activeText}</button>
 				</li>
 			`;
 		});
