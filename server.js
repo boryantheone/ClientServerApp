@@ -42,6 +42,13 @@ app.post("/users/admin/user/:login", usersController.createUser);
 app.post("/users/admin/moder/:login", usersController.createModer);
 app.delete("/users/:login", usersController.delete);
 app.put("/users/:login/:new_login", usersController.edit);
+
+
+// app.get("/users/:login/cart", usersController.checkCart);
+
+app.put("/users_cart/:name", usersController.addToCart);
+app.put("/users_cart_del/:name", usersController.deleteFromCart);
+app.put("/users_cart_del_all/:name", usersController.deleteAllFromCart);
 app.get("/users/:login/cart", usersController.checkCart);
 
 // app.get("/users/moder/:login", productController.productList);

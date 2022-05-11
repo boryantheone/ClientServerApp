@@ -5,58 +5,73 @@ class Products {
 		this.labelRemove = 'Удалить из корзины';
 	}
 
-	handleSetLocationStorage(element, _id) {
-		const { pushProduct, products } = localStorageUtil.putProducts(_id);
+	// handleSetLocationStorage(element, _id) {
+	// 	const { pushProduct, products } = this.returnProductsFromCart(_id);
 
-		if (pushProduct) {
-			element.classList.add(this.classNameActive);
-			element.innerHTML = this.labelRemove;
-		} else {
-			element.classList.remove(this.classNameActive);
-			element.innerHTML = this.labelAdd;
-		}
+	// 	if (pushProduct) {
+	// 		element.classList.add(this.classNameActive);
+	// 		element.innerHTML = this.labelRemove;
+	// 	} else {
+	// 		element.classList.remove(this.classNameActive);
+	// 		element.innerHTML = this.labelAdd;
+	// 	}
 
-		headerPageUser.renderHeaderUser(products.length);
+	// 	headerPageUser.renderHeaderUser(products.length);
 
-	}
+	// }
 
 	returnProductsFromCart() {
-		try {
-			var cart = [];
+		var cartUser = [];
 
-			var list = document.location.href.split('/');
-			var login = list[list.length - 2];
-			console.log(login);
+		var list = document.location.href.split('/');
+		var login = list[list.length - 2];
 
-			$.get("/users/" + login + "/cart", function (result) {
-				console.log(result);
-				cart = result.cart;
-				console.log(cart);
-			})
-			if (cart.length !== 0) {
-				return (cart);
+		$.get("/users/" + login + "/cart", function (result) {
+
+			var cartLen = result[0].cart.length;
+			for (var i = cartLen - 1; i >= 0; i--) {
+				cartUser.push(result[0].cart[i]);
 			}
-			return [];
-		} catch (error) {
-			console.log(error);
-		}
+			headerPageUser.renderHeaderUser(cartUser.length, cartUser);
+			
+		})
+		return (cartUser);
 	}
 
 	pushToCart(_id) {
-	
+
 		var list = document.location.href.split('/');
-		var login = list[list.length - 2];
-		console.log(login);
+		var name = list[list.length - 2];
 
-
-		$.post("/users/" + login + "/cart_add", {"cart" : _id}).done(function(response) {
-			alert('Книга добавлена в корзину!');
-		}).fail(function (jqXHR, textStatus, error) {
-			console.log(error);
-			alert("Ошибка!" + jqXHR.status + " " + jqXHR.textStatus);
-			
+		$.ajax({
+			'url': '/users_cart/' + name,
+			'type': 'PUT',
+			"data": { "_id": _id }
+		}).done(function (responde) {
+			alert('Thank you!');
 		});
+		this.returnProductsFromCart();
+		// console.log("gtd fdf:" + userCart)
+		// headerPageUser.renderHeaderUser(userCart.length, cartUser);
+		location.reload();
+	}
 
+	deleteFromCart(_id) {
+
+		var list = document.location.href.split('/');
+		var name = list[list.length - 2];
+
+		$.ajax({
+			'url': '/users_cart_del/' + name,
+			'type': 'PUT',
+			"data": { "_id": _id }
+		}).done(function (responde) {
+			alert('Такой книги нет в корзине!');
+		});
+		var userCart = this.returnProductsFromCart();
+		console.log("delete:" + userCart);
+		headerPageUser.renderHeaderUser(userCart.length);
+		location.reload();
 	}
 
 	handleCategory1() {
@@ -172,7 +187,7 @@ class Products {
 			CATALOG = [];
 			CATALOG = result;
 			console.log(result);
-			const productsStore = localStorageUtil.getProducts();
+			const productsStore = this.returnProductsFromCart();
 			headerPageUser.renderHeaderUser(productsStore.length);
 			productsPageUser.render();
 		});
@@ -180,16 +195,15 @@ class Products {
 
 
 	render() {
-		// const this.returnProductsFromCart();
-		// const productsStorage = localStorageUtil.getProducts();
-		const productsStorage = this.returnProductsFromCart();
+		const productsStore = this.returnProductsFromCart();
+		headerPageUser.renderHeaderUser(productsStore.length, productsStore);
 		let htmlCatalog = '';
 
 		CATALOG.forEach(({ _id, name, author, price, img }) => {
 			let activeClass = '';
 			let activeText = '';
 
-			if (productsStorage.indexOf(_id) === -1) {
+			if (productsStore.indexOf(_id) === -1) {
 				activeText = this.labelAdd;
 			} else {
 				activeClass = ' ' + this.classNameActive;
@@ -204,7 +218,8 @@ class Products {
 					<span class="products-elements__price">
 						💌${price.toLocaleString()} RUB
 					</span>
-					<button class="products-elements__btn${activeClass}" onclick="productsPageUser.pushToCart('${_id}');">${activeText}</button>
+					<button id="btn_buy" class="products-elements__btn" onclick="productsPageUser.pushToCart('${_id}');" >Добавить в корзину</button>
+					<button id="btn_del" class="products-elements__btn" onclick="productsPageUser.deleteFromCart('${_id}');" >Удалить из корзины</button>
 				</li>
 			`;
 		});

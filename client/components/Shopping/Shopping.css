@@ -37,3 +37,9 @@
 	background-size: contain;
 	cursor: pointer;
 }
+
+.cart_name {
+	display: flex;
+	justify-content: center;
+	font-size: large;
+}

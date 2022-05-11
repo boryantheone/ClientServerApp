@@ -1,8 +1,6 @@
 
 function render() {
-	const productsStore = localStorageUtil.getProducts();
 
-	headerPageUser.renderHeaderUser(productsStore.length);
 	productsPageUser.render();
 }
 
@@ -50,3 +48,5 @@ $(document).ready(function () {
 		}
 	}));
 });
+
+

@@ -3,23 +3,6 @@ var users = require("../models/user.js"),
 	mongoose = require("mongoose"),
 	UsersController = {};
 
-// users.find({}, function(err, result){
-// 	if (err !== null){
-// 		console.log("Error -> " + err);
-// 	} else if (result.length === 0){
-// 		console.log("Добавление администратора!");
-// 		var admin = new User({"login": "admin", "role":"Администратор"});
-// 		admin.save(function (err, result) {
-// 			if (err != null){
-// 				console.log("Error -> " + err);
-// 			}
-// 			else {
-// 				console.log("Администратор добавлен!");
-// 			}
-// 		});
-// 	}
-// });
-
 UsersController.index = function (req, res) {
 	users.find(function (err, users) {
 		if (err != null) {
@@ -159,24 +142,102 @@ UsersController.checkCart = function(req, res) {
 			console.log("Ошибка! -> " + err);
 			res.send(500, err);
 		} else if (result.length !== 0) {
+			console.log(result);
 			res.json(200, result);
 		} else {
 			console.log("Ошибка! -> " + err);
-			res.status(404).send("Пользователя не существует!");
+			res.status(404).send("У пользователя нет корзины");
 		}
 	})
 };
 
-UsersController.updateCart = function(req, res) {
-	console.log("Добавляем  книги -> " + req.body.name);
-	users.updateOne({"login": req.body.login}, {"_id": req.body._id,"name": req.body.name, "author": req.body.author, "img": req.body.img, "price": req.body.price, "category": req.body.category }, function(err, result){
-		if (err !== null) {
-			console.log("Error! -> " + err);
-			res.json(500, err);
+UsersController.addToCart = function(req, res) {
+	var login = req.params.name;
+	var id = {$push: {cart:req.body._id}};
+	var flag = true;
+
+	console.log("Добавляем  книгу -> " + req.body._id + " от пользователя " + login);
+
+	users.find({"cart" : req.body._id}, function(err, result) {
+		for (const val of result) {
+			if (val.login === login){
+				flag = false;
+			}
+		}
+		if (flag === true) {
+			users.updateOne({"login": login}, id, function(err, user){
+				if (err !== null) {
+					console.log("Error! ->" + err);
+					res.json(500, err);
+				} else {
+					console.log("Книга уже добавлена в корзину!");
+					res.json(200, user);
+				}
+			});
 		} else {
-			res.json(200, result);
+			console.log("Книга уже была добалена в корзину ранее!");
 		}
 	});
 };
+
+UsersController.deleteFromCart = function(req, res) {
+	var login = req.params.name;
+	var id = {$pull: {cart:req.body._id}};
+	var flag = true;
+
+	console.log("Удаляем книгу -> " + req.body._id + " от пользователя " + login);
+
+	users.find({"cart" : req.body._id}, function(err, result) {
+		console.log(result);
+		for (const val of result) {
+			if (val._id === id){
+				flag = false;
+			}
+		}
+		if (flag === true) {
+			users.updateOne({"login": login}, id, function(err, user){
+				if (err !== null) {
+					console.log("Error! ->" + err);
+					res.json(500, err);
+				} else {
+					console.log("Книга уже добавлена в корзину!");
+					res.json(200, user);
+				}
+			});
+		} else {
+			console.log("Книга уже была добалена в корзину ранее!");
+		}
+	});
+}
+
+UsersController.deleteAllFromCart = function(req, res) {
+	var login = req.params.name;
+	var id = {$set: {cart: []}};
+	var flag = true;
+
+	console.log("Удаляем книгу -> " + req.body._id + " от пользователя " + login);
+
+	// users.find({"cart" : req.body._id}, function(err, result) {
+	// 	console.log(result);
+	// 	for (const val of result) {
+	// 		if (val._id === id){
+	// 			flag = false;
+	// 		}
+	// 	}
+		// if (flag === true) {
+			users.updateOne({"login": login}, id, function(err, user){
+				if (err !== null) {
+					console.log("Error! ->" + err);
+					res.json(500, err);
+				} else {
+					console.log("Книга уже добавлена в корзину!");
+					res.json(200, user);
+				}
+			});
+		// } else {
+		// 	console.log("Книга уже была добалена в корзину ранее!");
+		// }
+	// });
+}
 
 module.exports = UsersController;

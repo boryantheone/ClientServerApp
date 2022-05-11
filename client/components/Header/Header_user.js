@@ -1,9 +1,9 @@
 class Header {
-	handlerOpenShoppingPage() {
-		shoppingPage.render();
+	handlerOpenShoppingPage(arr) {
+		shoppingPage.render(arr);
 	}
 
-	renderHeaderUser(count) {
+	renderHeaderUser(count, arr) {
 		const html = `
 		<div class="header-container">
 			<div class="header-container__logo">
@@ -18,7 +18,7 @@ class Header {
 			<div class="exit_div">
 			<a class="exit" href="../../index.html"> Выйти </a>
 			</div>
-			<div class="header-counter" onclick="headerPageUser.handlerOpenShoppingPage();">
+			<div class="header-counter" onclick="headerPageUser.handlerOpenShoppingPage('${arr}');">
 				<p class="header-counter__fig">${count}</p>
 				<img src="components/Header/img/basket.png" width="42" height="42" alt="">
 			</div>
