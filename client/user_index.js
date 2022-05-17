@@ -12,7 +12,7 @@ $.get("/product", function (books) {
 })
 
 $(document).ready(function () {
-	$("#btn_search").on('click', (function () {
+	$("#header").on('click', '#btn_search', (function () {
 		let htmlCatalog = '';
 		var CATALOG = [];
 		var request = $("#inputValue").val();
@@ -23,7 +23,7 @@ $(document).ready(function () {
 				console.log(res);
 				if (res.length > 0) {
 					CATALOG = res;
-					CATALOG.forEach(({ name, author, price, img }) => {
+					CATALOG.forEach(({ _id, name, author, price, img }) => {
 						htmlCatalog += `
 						<li class="products-elements">
 							<span class="products-elements__name">${name}</span>
@@ -32,7 +32,8 @@ $(document).ready(function () {
 							<span class="products-elements__price">
 								💌${price.toLocaleString()} RUB
 							</span>
-							<button class="products-elements__btn" >Добавить в корзину</button>
+							<button class="products-elements__btn" onclick="productsPageUser.pushToCart('${_id}')" >Добавить в корзину</button>
+							<button id="btn_del" class="products-elements__btn" onclick="productsPageUser.deleteFromCart('${_id}');" >Удалить из корзины</button>
 						</li>
 					`;
 						$('.products-container').append(htmlCatalog);

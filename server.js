@@ -33,6 +33,7 @@ app.get("/product_search/:name", productController.search);
 app.post("/product/add", productController.addBook);
 app.delete("/product/delete/:name", productController.deleteBook);
 app.put("/product/update", productController.updateBook);
+app.get("/productByAuthorAndName", productController.smartSearch);
 
 
 app.get("/users/:login", usersController.show);

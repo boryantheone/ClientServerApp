@@ -134,9 +134,9 @@ UsersController.edit = function (req, res) {
 }
 
 
-UsersController.checkCart = function(req, res) {
+UsersController.checkCart = function (req, res) {
 	var login = req.params.login;
-	console.log("Смотрим содержимое корзины пользователя под именем "+ login);
+	console.log("Смотрим содержимое корзины пользователя под именем " + login);
 	users.find({ 'login': login }, function (err, result) {
 		if (err) {
 			console.log("Ошибка! -> " + err);
@@ -151,21 +151,21 @@ UsersController.checkCart = function(req, res) {
 	})
 };
 
-UsersController.addToCart = function(req, res) {
+UsersController.addToCart = function (req, res) {
 	var login = req.params.name;
-	var id = {$push: {cart:req.body._id}};
+	var id = { $push: { cart: req.body._id } };
 	var flag = true;
 
 	console.log("Добавляем  книгу -> " + req.body._id + " от пользователя " + login);
 
-	users.find({"cart" : req.body._id}, function(err, result) {
+	users.find({ "cart": req.body._id }, function (err, result) {
 		for (const val of result) {
-			if (val.login === login){
+			if (val.login === login) {
 				flag = false;
 			}
 		}
 		if (flag === true) {
-			users.updateOne({"login": login}, id, function(err, user){
+			users.updateOne({ "login": login }, id, function (err, user) {
 				if (err !== null) {
 					console.log("Error! ->" + err);
 					res.json(500, err);
@@ -180,22 +180,22 @@ UsersController.addToCart = function(req, res) {
 	});
 };
 
-UsersController.deleteFromCart = function(req, res) {
+UsersController.deleteFromCart = function (req, res) {
 	var login = req.params.name;
-	var id = {$pull: {cart:req.body._id}};
+	var id = { $pull: { cart: req.body._id } };
 	var flag = true;
 
 	console.log("Удаляем книгу -> " + req.body._id + " от пользователя " + login);
 
-	users.find({"cart" : req.body._id}, function(err, result) {
+	users.find({ "cart": req.body._id }, function (err, result) {
 		console.log(result);
 		for (const val of result) {
-			if (val._id === id){
+			if (val._id === id) {
 				flag = false;
 			}
 		}
 		if (flag === true) {
-			users.updateOne({"login": login}, id, function(err, user){
+			users.updateOne({ "login": login }, id, function (err, user) {
 				if (err !== null) {
 					console.log("Error! ->" + err);
 					res.json(500, err);
@@ -210,34 +210,24 @@ UsersController.deleteFromCart = function(req, res) {
 	});
 }
 
-UsersController.deleteAllFromCart = function(req, res) {
+UsersController.deleteAllFromCart = function (req, res) {
 	var login = req.params.name;
-	var id = {$set: {cart: []}};
+	var id = { $set: { cart: [] } };
 	var flag = true;
 
 	console.log("Удаляем книгу -> " + req.body._id + " от пользователя " + login);
 
-	// users.find({"cart" : req.body._id}, function(err, result) {
-	// 	console.log(result);
-	// 	for (const val of result) {
-	// 		if (val._id === id){
-	// 			flag = false;
-	// 		}
-	// 	}
-		// if (flag === true) {
-			users.updateOne({"login": login}, id, function(err, user){
-				if (err !== null) {
-					console.log("Error! ->" + err);
-					res.json(500, err);
-				} else {
-					console.log("Книга уже добавлена в корзину!");
-					res.json(200, user);
-				}
-			});
-		// } else {
-		// 	console.log("Книга уже была добалена в корзину ранее!");
-		// }
-	// });
+
+	users.updateOne({ "login": login }, id, function (err, user) {
+		if (err !== null) {
+			console.log("Error! ->" + err);
+			res.json(500, err);
+		} else {
+			console.log("Книга уже добавлена в корзину!");
+			res.json(200, user);
+		}
+	});
+
 }
 
 module.exports = UsersController;

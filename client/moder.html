@@ -38,31 +38,13 @@
 			<div class="book_info"></div>
 		</div>
 		<div class="moder_list">
-			<ul class="list_books">Список книг</ul>
+			<div class="search_div">ПОИСК КНИГ</div>
+			<input id="input_name_aut" placeholder="Введите название книги или автора">
+			<div class="list_books">Список всех книг</div>
 		</div>
 
 	</div>
-	<div class="admin-footer">
-		<div class="footer">
-			<div class="footer-info">
-				<h5><big>Контактная информация</big></h5>
-				<p>📚Добрейшие книжки📚</p>
-				<p>▪️555 50-я улица</p>
-				<p>▪️Татарстан, Казань 28801</p>
-				<p>▪️89534086854</p>
-				<p>▪️bookshop@mail.ru</p>
-			</div>
-			<div class="footer-contact">
-				<h5><big>Присоединяйтесь к нам в соцсетях</big></h5>
-				<ul class="footer-social-icons">
-					<li><a class="footer-social-icon-vk" href="#" title="..." target="_blank" rel="noopener"><img
-								src="components/Footer/img/vk.png"></a></li>
-					<li><a class="footer-social-icon-telegram" href="#" title="..." target="_blank" rel="noopener"><img
-								src="components/Footer/img/tg.png"></a></li>
-				</ul>
-			</div>
-		</div>
-	</div>
+	
 	<script>
 		$.get("/product", function (books) {
 			let books_catalog = [];
@@ -74,7 +56,7 @@
 				console.log(books_catalog);
 				for (var i = books_catalog.length - 1; i >= 0; i--) {
 					html = "";
-					var html = $('<li>' + books_catalog[i].name + '</li>');
+					var html = $('<dl>'  +  '<dt>' + 'Название книги: ' + books_catalog[i].name + '</dt>' +  '<dd>' + 'Автор: ' + books_catalog[i].author + '</dd>'+ '</dl>');
 					$('.list_books').append(html);
 					html = "";
 				}
@@ -128,7 +110,7 @@
 					}).done(function (response) {
 						alert("Книга изменена!")
 						location.reload();
-					}).fail(function(response) {
+					}).fail(function (response) {
 						alert("Такой книги нет!")
 					})
 				} else {
@@ -138,12 +120,16 @@
 		});
 
 		$("#mod_add_button").on("click", function () {
+			$('#mod_doedit_button').remove();
 			if ($('#name_book').val() != "") {
 				var name = $('#name_book').val();
 				$.get("/product", function (books) {
 					for (var i = books.length - 1; i >= 0; i--) {
 						if (books[i].name == name) {
+							$('.book_info').empty();
+							$('#mod_doadd_button').remove();
 							alert("Такая книга уже есть!");
+							document.getElementById("name_book").value = "";
 							return;
 						}
 					}
@@ -165,21 +151,29 @@
 				$('.moder_panel_main').append('<button id="mod_doedit_button">Выполнить</button>');
 				var name = $('#name_book').val();
 				$.get('/product_search/' + name, function (res) {
-					
-					$('#mod_id_book').val(res[0]._id);
-					$('#mod_name_book').val(res[0].name);
-					$('#mod_author_book').val(res[0].author);
-					$('#mod_img_book').val(res[0].img);
-					$('#mod_price_book').val(res[0].price);
-					$('#mod_category_book').val(res[0].category);
+					if (res.length > 0) {
+						$('#mod_id_book').val(res[0]._id);
+						$('#mod_name_book').val(res[0].name);
+						$('#mod_author_book').val(res[0].author);
+						$('#mod_img_book').val(res[0].img);
+						$('#mod_price_book').val(res[0].price);
+						$('#mod_category_book').val(res[0].category);
+					} else {
+						alert('Такой книги нет!');
+						$('.mod_text_info').empty();
+						$('.mod_inputs_info').remove();
+						$('#mod_doedit_button').remove();
+						document.getElementById("name_book").value = "";
+					}
+
 				});
 			}
 		});
 
 		$('#mod_del_button').on('click', function () {
 			if ($('#name_book').val() != "") {
-				$('#book_info').empty();
-				$('#mod_doadd_button').remove();
+				$('.mod_text_info').empty();
+				$('.mod_inputs_info').remove();
 				$('#mod_doedit_button').remove();
 
 
@@ -197,11 +191,60 @@
 						alert("Error! Такой книги нет или неправильно написано название!" + jqXHR.status + " " + jqXHR.textStatus);
 					});
 				}
-
+				document.getElementById("name_book").value = "";
+				location.reload();
 			}
 		});
 
-
+		$("#input_name_aut").on("input", function (ev) {
+			console.log($(ev.target).val());
+			if ($(ev.target).val() != '') {
+				$.ajax({
+					'url': "/productByAuthorAndName",
+					'type': 'GET',
+					'data': { 'name': $(ev.target).val(), 'author': $(ev.target).val() },
+					'success': function (data, status, xhr) {
+						console.log(data);
+						if (data.length > 0) {
+							$('.list_books').empty();
+							for (var i = data.length - 1; i >= 0; i--) {
+								html = "";
+								var html = $('<dl>'  +  '<dt>' + 'Название книги: ' + data[i].name + '</dt>' +  '<dd>' + 'Автор: ' + data[i].author + '</dd>'+ '</dl>');
+								$('.list_books').append(html);
+								html = "";
+							}
+						// }
+						} else {
+							$('.list_books').empty();
+						}
+					},
+					'error': function (jqXHR) {
+						console.log("Error ->" + jqXHR);
+					}
+				})
+			}
+			else {
+				$.get("/product", function (books) {
+					let books_catalog = [];
+					console.log(books.length);
+					if (books.length > 0) {
+						for (var i = books.length - 1; i >= 0; i--) {
+							books_catalog.push(books[i]);
+						}
+						console.log(books_catalog);
+						for (var i = books_catalog.length - 1; i >= 0; i--) {
+							html = "";
+							var html = $('<dl>'  +  '<dt>' + 'Название книги: ' + books_catalog[i].name + '</dt>' +  '<dd>' + 'Автор: ' + books_catalog[i].author + '</dd>'+ '</dl>');
+							$('.list_books').append(html);
+							html = "";
+						}
+					} else {
+						var html = $('<li>' + "Еще нет книг" + '</li>');
+						$('.list_books').append(html);
+					}
+				});
+			}
+		})
 	</script>
 </body>
 

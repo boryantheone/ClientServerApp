@@ -114,6 +114,24 @@ var Product = require("../models/product.js"),
 		});
 	};
 
+	ProductsController.smartSearch = function(req, res) {
+		var name = req.query.name;
+		var author = req.query.author;
+		console.log("Ищем книги по названию или автору!" +   name);
+		Product.find({$or: [{'name': {$regex: name, $options: "i"}}, {'author': {$regex: author, $options: "i"}}]}, function(err, result) {
+			if (err != null) {
+				console.log("Error! -> " + err);
+				res.status(500).json(err);
+			} else {
+				if (result.length > 0) {
+					console.log("Вы выполнили поиск!");
+					res.status(200).json(result);
+				} else {
+					res.status(200).json(result);
+				}
+			}
+		});
+	};
 	
 
 module.exports = ProductsController;

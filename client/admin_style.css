@@ -87,14 +87,15 @@ ul {
 	flex-direction: row;
 	align-items: flex-start;
 	margin-top: 30px;
+	width: max-content;
 }
 .moder_panel input {
 	width: 160px;
 }
 
-.moder_list {
+/* .moder_list {
 	margin-left: 10%;
-}
+} */
 .mod_text_info {
 	display: flex;
 	flex-direction: column;
@@ -114,10 +115,32 @@ ul {
 
 }
 
+.search_div {
+	/* margin-left: auto; */
+}
+
 #mod_doadd_button {
 	margin-left: 100px;
 }
 
 #mod_doedit_button {
 	margin-left: 100px;
+}
+
+
+#input_name_aut {
+	width: 300px;
+}
+
+
+	.moder_list {
+		display: table;
+		align-items: center;
+		flex-direction: column;
+		margin-left: 150px;
+	}
+
+
+.list_books {
+	/* margin-left: 10%; */
 }

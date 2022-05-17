@@ -66,11 +66,13 @@ class Products {
 			'type': 'PUT',
 			"data": { "_id": _id }
 		}).done(function (responde) {
-			alert('Такой книги нет в корзине!');
+			alert('Книга удалена!');
+		}).fail(function(response){
+			alert("Такой книги нет в корзине!");
 		});
 		var userCart = this.returnProductsFromCart();
 		console.log("delete:" + userCart);
-		headerPageUser.renderHeaderUser(userCart.length);
+		headerPageUser.renderHeaderUser(userCart.length, userCart);
 		location.reload();
 	}
 
